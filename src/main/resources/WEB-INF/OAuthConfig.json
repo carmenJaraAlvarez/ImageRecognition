@@ -1,0 +1,17 @@
+{	
+    "GoogleDrive": { 
+		"tokenUrl":"https://www.googleapis.com/oauth2/v4/token",
+		"clientId":"907680136131-eq32ptmaunb20e29fm44cfjq5fpscg98.apps.googleusercontent.com",
+		"clientSecret":"J2OXv9k2UOAYC4sXKfCtl96i" ,
+		"authorizationFormUrl":"https://accounts.google.com/o/oauth2/v2/auth",
+		"scopes":["https://www.googleapis.com/auth/drive.file"]
+    },
+     "Unplash": {
+		"tokenUrl":"https://unsplash.com/oauth/token",
+		"clientId":"d9d5f89967e09d0b2de54059387a51855895532676d61edb1f3eea11ba96bc96",
+		"clientSecret":"0a59f675fd91205a6bf74fca684e6d999b8f44a2be278b0df15c71bdebf92309" ,
+		"authorizationFormUrl":"https://unsplash.com/oauth/authorize",
+		"scopes":["public read_photos write_photos read_collections write_collections write_user read_user"]
+    }
+	
+}		

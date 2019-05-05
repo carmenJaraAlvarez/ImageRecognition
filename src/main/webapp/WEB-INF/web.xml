@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+	<servlet>
+		<servlet-name>HelloWorld</servlet-name>
+		<servlet-class>aiss.HelloWorldServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>HelloWorld</servlet-name>
+		<url-pattern>/helloworld</url-pattern>
+	</servlet-mapping>
+	
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	
+	 <servlet>
+    <servlet-name>MemberListController</servlet-name>
+    <servlet-class>aiss.controller.MemberListController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberListController</servlet-name>
+    <url-pattern>/about</url-pattern>
+  </servlet-mapping>
+	     <!-- Unplash get images-->
+    <servlet>
+        <servlet-name>UnplashImagesListController</servlet-name>
+        <servlet-class>aiss.controller.UnplashImagesListController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UnplashImagesListController</servlet-name>
+        <url-pattern>/unplashImagesList</url-pattern>
+    </servlet-mapping>
+       <!-- Unplash create collection-->
+    <servlet>
+        <servlet-name>UnplashCreateCollectionController</servlet-name>
+        <servlet-class>aiss.controller.UnplashCreateCollectionController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UnplashCreateCollectionController</servlet-name>
+        <url-pattern>/unplashCreateCollection</url-pattern>
+    </servlet-mapping>
+      <!-- Unplash get collection-->
+    <servlet>
+        <servlet-name>UnplashCollectionsListController</servlet-name>
+        <servlet-class>aiss.controller.UnplashCollectionsListController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UnplashCollectionsListController</servlet-name>
+        <url-pattern>/unplashCollectionsList</url-pattern>
+    </servlet-mapping>
+      <!-- Unplash add photo to collection-->
+    <servlet>
+        <servlet-name>UnplashAddPhotoToCollectionController</servlet-name>
+        <servlet-class>aiss.controller.UnplashAddPhotoToCollectionController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UnplashAddPhotoToCollectionController</servlet-name>
+        <url-pattern>/unplashAddPhoto</url-pattern>
+    </servlet-mapping>
+    
+          <!-- Unplash publish collection-->
+    <servlet>
+        <servlet-name>UnplashPublishCollectionController</servlet-name>
+        <servlet-class>aiss.controller.UnplashPublishCollectionController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UnplashPublishCollectionController</servlet-name>
+        <url-pattern>/unplashPublishCollection</url-pattern>
+    </servlet-mapping>
+              <!-- Unplash delete collection-->
+    <servlet>
+        <servlet-name>UnplashDeleteCollectionController</servlet-name>
+        <servlet-class>aiss.controller.UnplashDeleteCollectionController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UnplashDeleteCollectionController</servlet-name>
+        <url-pattern>/unplashDeleteCollection</url-pattern>
+    </servlet-mapping>
+	     <!-- Imgur files - retrieve
+    <servlet>
+        <servlet-name>ImgurImagesListController</servlet-name>
+        <servlet-class>aiss.controller.ImgurImagesListController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ImgurImagesListController</servlet-name>
+        <url-pattern>/imgurImagesList</url-pattern>
+    </servlet-mapping> -->
+    <!-- Google Drive files - retrieve -->
+    <servlet>
+        <servlet-name>GoogleDriveFileListController</servlet-name>
+        <servlet-class>aiss.controller.GoogleDriveFileListController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GoogleDriveFileListController</servlet-name>
+        <url-pattern>/googleDriveFileList</url-pattern>
+    </servlet-mapping>
+    <!-- Google Drive files - delete -->
+    <servlet>
+        <servlet-name>GoogleDriveFileDeleteController</servlet-name>
+        <servlet-class>aiss.controller.GoogleDriveFileDeleteController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GoogleDriveFileDeleteController</servlet-name>
+        <url-pattern>/googleDriveFileDelete</url-pattern>
+    </servlet-mapping>
+    <!-- Google Drive files - update -->
+    <servlet>
+        <servlet-name>GoogleDriveFileUpdateController</servlet-name>
+        <servlet-class>aiss.controller.GoogleDriveFileUpdateController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GoogleDriveFileUpdateController</servlet-name>
+        <url-pattern>/googleDriveFileUpdate</url-pattern>
+    </servlet-mapping>
+    <!-- Google Drive files - create -->
+    <servlet>
+        <servlet-name>GoogleDriveFileNewController</servlet-name>
+        <servlet-class>aiss.controller.GoogleDriveFileNewController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GoogleDriveFileNewController</servlet-name>
+        <url-pattern>/googleDriveFileNew</url-pattern>
+    </servlet-mapping>
+	<!--  OAUTH SERVLETS 
+  
+  	For each OAuth 2.0 service, you need to create two servlets: one for the initiation 
+  	and another for the callback. After sucess the token for the provider will be available
+  	in the session scope under the name <provider>-token. E.g.: Spotify-token.
+  	
+  	Those servlets support 2 parameters:
+  	 - provider: which is mandatory and specifies the configuration from the OAuthConfig.json file which
+  	    will be applied.
+  	 - onSuccess: which is optional specifies the behaviour of the servlet after an successful 
+  	 	authorization. If you specify close as the value of the parameter, the page will close. If you
+  	 	specify redirect:XXXX, the page will be redirected to XXXX.  
+  	
+  	WARNING: The url-patterns of all the servlets mus be disjoint. 
+  			Our recommendation is that if you expecify X as the provider, the url-pattern of the 
+  			initiation servlet could be	/AuthController/X, and the url-pattern of the callback
+  			 servlet must be /oauth2callback/X.
+  -->
+  <!--    Spotify example -->
+  
+  <!--  
+  <servlet>
+    <description></description>
+    <display-name>SpotifyAuthController</display-name>
+    <servlet-name>SpotifyAuthController</servlet-name>
+    <servlet-class>aiss.controller.oauth.GenericAuthController</servlet-class>
+    <init-param>
+    	<param-name>provider</param-name>
+    	<param-value>Spotify</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SpotifyAuthController</servlet-name>
+    <url-pattern>/AuthController/Spotify</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SpotifyOAuth2Callback</display-name>
+    <servlet-name>SpotifyOAuth2Callback</servlet-name>
+    <servlet-class>aiss.controller.oauth.OAuth2Callback</servlet-class>
+    <init-param>
+    	<param-name>provider</param-name>
+    	<param-value>Spotify</param-value>
+    </init-param>
+    <init-param>
+    	<param-name>onSuccess</param-name>
+    	<param-value>close</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SpotifyOAuth2Callback</servlet-name>
+    <url-pattern>/oauth2callback/Spotify</url-pattern>
+  </servlet-mapping>
+  
+  -->
+      <!--   GoogleDrive oAuth2 servlets    -->
+    <!-- GoogleDriveAuthController-->
+    <servlet>
+        <description/>
+        <servlet-name>GoogleDriveAuthController</servlet-name>
+        <servlet-class>aiss.controller.oauth.GenericAuthController</servlet-class>
+        <init-param>
+            <param-name>provider</param-name>
+            <param-value>GoogleDrive</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GoogleDriveAuthController</servlet-name>
+        <url-pattern>/AuthController/GoogleDrive</url-pattern>
+    </servlet-mapping>
+    <!--GoogleDriveOAuth2Callback-->
+    <servlet>
+        <description/>
+        <servlet-name>GoogleDriveOAuth2Callback</servlet-name>
+        <servlet-class>aiss.controller.oauth.OAuth2Callback</servlet-class>
+        <init-param>
+            <param-name>provider</param-name>
+            <param-value>GoogleDrive</param-value>
+        </init-param>
+        <init-param>
+            <param-name>onSuccess</param-name>
+            <param-value>redirect:/googleDriveFileList</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GoogleDriveOAuth2Callback</servlet-name>
+        <url-pattern>/oauth2callback/GoogleDrive</url-pattern> 
+    </servlet-mapping>
+        <!--   Imgur oAuth2 servlets    -->
+    <!-- ImgurAuthController
+    <servlet>
+        <description/>
+        <servlet-name>ImgurAuthController</servlet-name>
+        <servlet-class>aiss.controller.oauth.GenericAuthController</servlet-class>
+        <init-param>
+            <param-name>provider</param-name>
+            <param-value>Imgur</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ImgurAuthController</servlet-name>
+        <url-pattern>/AuthController/Imgur</url-pattern>
+    </servlet-mapping>-->
+    <!--ImgurOAuth2Callback
+    <servlet>
+        <description/>
+        <servlet-name>ImgurOAuth2Callback</servlet-name>
+        <servlet-class>aiss.controller.oauth.OAuth2Callback</servlet-class>
+        <init-param>
+            <param-name>provider</param-name>
+            <param-value>Imgur</param-value>
+        </init-param>
+        <init-param>
+            <param-name>onSuccess</param-name>
+            <param-value>redirect:/imgurImagesList</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ImgurOAuth2Callback</servlet-name>
+        <url-pattern>/oauth2callback/Imgur</url-pattern> 
+    </servlet-mapping>-->
+
+        <!-- ImgurAuthController-->
+    <servlet>
+        <description/>
+        <servlet-name>UnplashAuthController</servlet-name>
+        <servlet-class>aiss.controller.oauth.GenericAuthController</servlet-class>
+        <init-param>
+            <param-name>provider</param-name>
+            <param-value>Unplash</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UnplashAuthController</servlet-name>
+        <url-pattern>/AuthController/Unplash</url-pattern>
+    </servlet-mapping>
+    <!--UnplashOAuth2Callback-->
+    <servlet>
+        <description/>
+        <servlet-name>UnplashOAuth2Callback</servlet-name>
+        <servlet-class>aiss.controller.oauth.OAuth2Callback</servlet-class>
+        <init-param>
+            <param-name>provider</param-name>
+            <param-value>Unplash</param-value>
+        </init-param>
+        <init-param>
+            <param-name>onSuccess</param-name>
+            <param-value>redirect:/unplashImagesList</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UnplashOAuth2Callback</servlet-name>
+        <url-pattern>/oauth2callback/Unplash</url-pattern> 
+    </servlet-mapping>
+    
+</web-app>
+
