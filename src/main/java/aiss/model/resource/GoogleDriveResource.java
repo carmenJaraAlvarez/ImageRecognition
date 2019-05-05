@@ -34,7 +34,7 @@ public class GoogleDriveResource {
             cr = new ClientResource(uri + "?access_token=" + access_token);
             String result = cr.get(String.class);
             files = cr.get(Files.class);
-
+            
         } catch (ResourceException re) {
             log.warning("Error when retrieving all files: " + cr.getResponse().getStatus());
         }

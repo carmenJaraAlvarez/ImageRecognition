@@ -9,6 +9,8 @@
     <c:forEach items="${images}" var="item">
    <img src=" ${item.urls.small}"><br>
     <a class="btn btn-default" href="/unplashAddPhoto?id=${item.id}">to collection</a>
+   <c:out value="${item.urls.raw}"></c:out><br>
+    <c:out value="${item.urls.full}"></c:out>
     <br>
     <br>
 	</c:forEach>

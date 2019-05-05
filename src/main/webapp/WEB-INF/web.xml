@@ -88,6 +88,15 @@
         <servlet-name>ImgurImagesListController</servlet-name>
         <url-pattern>/imgurImagesList</url-pattern>
     </servlet-mapping> -->
+     <!-- Google Vision files - retrieve -->
+    <servlet>
+        <servlet-name>GoogleVisionListController</servlet-name>
+        <servlet-class>aiss.controller.GoogleVisionListController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GoogleVisionListController</servlet-name>
+        <url-pattern>/googleVisionList</url-pattern>
+    </servlet-mapping>
     <!-- Google Drive files - retrieve -->
     <servlet>
         <servlet-name>GoogleDriveFileListController</servlet-name>
@@ -97,6 +106,7 @@
         <servlet-name>GoogleDriveFileListController</servlet-name>
         <url-pattern>/googleDriveFileList</url-pattern>
     </servlet-mapping>
+    
     <!-- Google Drive files - delete -->
     <servlet>
         <servlet-name>GoogleDriveFileDeleteController</servlet-name>
@@ -211,6 +221,39 @@
     <servlet-mapping>
         <servlet-name>GoogleDriveOAuth2Callback</servlet-name>
         <url-pattern>/oauth2callback/GoogleDrive</url-pattern> 
+    </servlet-mapping>
+       <!--   GoogleVision oAuth2 servlets    -->
+    <!-- GoogleVisionAuthController-->
+    <servlet>
+        <description/>
+        <servlet-name>GoogleVisionAuthController</servlet-name>
+        <servlet-class>aiss.controller.oauth.GenericAuthController</servlet-class>
+        <init-param>
+            <param-name>provider</param-name>
+            <param-value>GoogleVision</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GoogleVisionAuthController</servlet-name>
+        <url-pattern>/AuthController/GoogleVision</url-pattern>
+    </servlet-mapping>
+    <!--GoogleVisionOAuth2Callback-->
+    <servlet>
+        <description/>
+        <servlet-name>GoogleVisionOAuth2Callback</servlet-name>
+        <servlet-class>aiss.controller.oauth.OAuth2Callback</servlet-class>
+        <init-param>
+            <param-name>provider</param-name>
+            <param-value>GoogleVision</param-value>
+        </init-param>
+        <init-param>
+            <param-name>onSuccess</param-name>
+            <param-value>redirect:/googleVisionList</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GoogleVisionOAuth2Callback</servlet-name>
+        <url-pattern>/oauth2callback/GoogleVision</url-pattern> 
     </servlet-mapping>
         <!--   Imgur oAuth2 servlets    -->
     <!-- ImgurAuthController
