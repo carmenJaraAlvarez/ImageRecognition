@@ -19,6 +19,13 @@
 		"clientSecret":"_E_0Tigw84CPMBdr7-LnkMYx" ,
 		"authorizationFormUrl":"https://accounts.google.com/o/oauth2/v2/auth",
 		"scopes":["https://www.googleapis.com/auth/cloud-vision"]
+    },
+        "MicrosoftTranslate": { 
+		"tokenUrl":"",
+		"clientId":"f50b580c7f0e48c6b2dfcd38b4edf5fd",
+		"clientSecret":"4ab65da9248a4429af8ec5eb91d16444" ,
+		"authorizationFormUrl":"",
+		"scopes":[""]
     }
 	
 }		

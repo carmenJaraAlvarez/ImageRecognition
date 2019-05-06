@@ -24,6 +24,16 @@
     <servlet-name>MemberListController</servlet-name>
     <url-pattern>/about</url-pattern>
   </servlet-mapping>
+    <!-- Microsoft translate-->
+  	 <servlet>
+    <servlet-name>MicrosoftTranslateController</servlet-name>
+    <servlet-class>aiss.controller.MicrosoftTranslateController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MicrosoftTranslateController</servlet-name>
+    <url-pattern>/translate</url-pattern>
+  </servlet-mapping>
+  
 	     <!-- Unplash get images-->
     <servlet>
         <servlet-name>UnplashImagesListController</servlet-name>
