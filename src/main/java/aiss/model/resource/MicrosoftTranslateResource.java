@@ -41,22 +41,28 @@ public class MicrosoftTranslateResource {
         try {
             cr = new ClientResource(uri  + lang);
             log.info("uri-> " + uri  + lang);
-            Series<Header> headers = (Series<Header>) cr.getRequestAttributes().get("org.restlet.http.headers"); 
-            if (headers == null) { 
-            	 log.info("headers is null " );
-            	headers = new Series<Header>(Header.class); 
-            	} 
-            log.info("Bearer " +access_token);
-            headers.add("Authoritation", "Bearer " +access_token );
-            
+//            Series<Header> headers = (Series<Header>) cr.getRequestAttributes().get("org.restlet.http.headers"); 
+//            if (headers == null) { 
+//            	 log.info("headers is null " );
+//            	headers = new Series<Header>(Header.class); 
+//            	} 
+//            log.info("Bearer " +access_token);
+//            headers.add("Authorization", "Bearer " +access_token );
+            ChallengeResponse chr = new ChallengeResponse(
+                    ChallengeScheme.HTTP_OAUTH_BEARER);
+       chr.setRawValue(access_token);
+       cr.setChallengeResponse(chr);
+      
             //String result = cr.get(String.class);
-            TranslateRequest[] mtr=new TranslateRequest[ls.size()];
-            for(int i=0; i<1; i++) {
-            	//mtr[i].setText(ls.get(i));
-            }
             
+  
+            TranslateRequest[] mtr=new TranslateRequest[1];
+            mtr[0]=new TranslateRequest();
+            mtr[0].setText("hello");
+            log.info(mtr.toString());
             Translated[] translations=cr.post(mtr, Translated[].class);
             log.info("translation response " + cr.getResponse().getStatus());
+            log.info(">>>>>>>>>>>>>>" + translations[0].getTranslations().get(0).getText());
         } catch (ResourceException re) {
             log.warning("Error translating " + cr.getResponse().getStatus());
         }
