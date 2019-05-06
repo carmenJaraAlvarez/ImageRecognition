@@ -2,7 +2,6 @@
 package aiss.model.microsoft;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -13,37 +12,23 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "detectedLanguage",
-    "translations"
+    "Text"
 })
-public class Translated {
-	
+public class TranslateRequest {
 
-    @JsonProperty("detectedLanguage")
-    private DetectedLanguage detectedLanguage;
-    @JsonProperty("translations")
-    private List<Translation> translations = null;
+    @JsonProperty("Text")
+    private String text;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("detectedLanguage")
-    public DetectedLanguage getDetectedLanguage() {
-        return detectedLanguage;
+    @JsonProperty("Text")
+    public String getText() {
+        return text;
     }
 
-    @JsonProperty("detectedLanguage")
-    public void setDetectedLanguage(DetectedLanguage detectedLanguage) {
-        this.detectedLanguage = detectedLanguage;
-    }
-
-    @JsonProperty("translations")
-    public List<Translation> getTranslations() {
-        return translations;
-    }
-
-    @JsonProperty("translations")
-    public void setTranslations(List<Translation> translations) {
-        this.translations = translations;
+    @JsonProperty("Text")
+    public void setText(String text) {
+        this.text = text;
     }
 
     @JsonAnyGetter
