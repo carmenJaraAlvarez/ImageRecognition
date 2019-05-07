@@ -35,7 +35,7 @@ public class MicrosoftTranslateResource {
      *
      *
      */
-    public List<String> getTranslation(List<String> ls, String lang) {
+    public List<String> getTranslation(List<String> tags, String lang) {
         ClientResource cr = null;
         List<String> translated = new ArrayList<>();
         try {
@@ -56,13 +56,20 @@ public class MicrosoftTranslateResource {
             //String result = cr.get(String.class);
             
   
-            TranslateRequest[] mtr=new TranslateRequest[1];
-            mtr[0]=new TranslateRequest();
-            mtr[0].setText("hello");
-            log.info(mtr.toString());
+            TranslateRequest[] mtr=new TranslateRequest[tags.size()];
+            
+            for(int i=0; i<tags.size();i++) {
+                mtr[i]=new TranslateRequest();
+                mtr[i].setText(tags.get(i));
+            }
+
             Translated[] translations=cr.post(mtr, Translated[].class);
             log.info("translation response " + cr.getResponse().getStatus());
-            log.info(">>>>>>>>>>>>>>" + translations[0].getTranslations().get(0).getText());
+            for(int i=0; i<tags.size();i++) {
+            	translated.add(translations[i].getTranslations().get(0).getText());
+            	log.info(">>>>>>>>>>>>>>" + translated.get(i));
+            }
+          
         } catch (ResourceException re) {
             log.warning("Error translating " + cr.getResponse().getStatus());
         }
