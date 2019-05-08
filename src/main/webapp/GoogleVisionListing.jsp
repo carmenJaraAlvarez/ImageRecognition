@@ -11,6 +11,18 @@
             <c:out value="${t}"/>
             <br>
             </c:forEach>
+            
+<form action="/translate" method="post">
+<input type="hidden" name="tags" value="${requestScope.tags}">  
+  <select name="lang" class="browser-default" >
+    <option value="" disabled selected>Idioma</option>
+    <option value="es">Español</option>
+    <option value="de">Alemán</option>
+    <option value="fr">Francés</option>
+    
+  </select>
+  <input type="submit" value=" ">
+</form>
 
 </div>
 

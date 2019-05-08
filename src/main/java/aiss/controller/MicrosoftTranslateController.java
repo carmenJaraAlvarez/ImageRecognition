@@ -2,6 +2,7 @@ package aiss.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -29,13 +30,20 @@ public class MicrosoftTranslateController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String lang="es";
+		
 		List<String> tags=new ArrayList<String>();
 		tags.add("water");
-		tags.add("red");		
-		String accessToken ="eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ1cm46bXMuY29nbml0aXZlc2VydmljZXMiLCJleHAiOiIxNTU3MjM0MTc3IiwicmVnaW9uIjoiZ2xvYmFsIiwic3Vic2NyaXB0aW9uLWlkIjoiNGNjYWE4MWQ4MGNiNGY5ZTg1NTNmMzFmYzVjYjVmNGUiLCJwcm9kdWN0LWlkIjoiVGV4dFRyYW5zbGF0b3IuRjAiLCJjb2duaXRpdmUtc2VydmljZXMtZW5kcG9pbnQiOiJodHRwczovL2FwaS5jb2duaXRpdmUubWljcm9zb2Z0LmNvbS9pbnRlcm5hbC92MS4wLyIsImF6dXJlLXJlc291cmNlLWlkIjoiL3N1YnNjcmlwdGlvbnMvNmM0NzA0ZDctMWQyYy00NGVhLWE0OTEtNTc4NTU4MmJjYjUyL3Jlc291cmNlR3JvdXBzL2YxL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvdDEiLCJzY29wZSI6Imh0dHBzOi8vYXBpLm1pY3Jvc29mdHRyYW5zbGF0b3IuY29tLyIsImF1ZCI6InVybjptcy5taWNyb3NvZnR0cmFuc2xhdG9yIn0.Wz2xTs5T1Bt-wqWkpqs-xguMz6Jnb7dDHUgIIZ0aWAQ";
-	        if (accessToken != null && !"".equals(accessToken)) {
-	        	log.info("**********************");
+		tags.add("red");
+		String tagsString=req.getParameter("tags");
+		log.info("tagsString->"+tagsString);
+		String tags2=tagsString.substring(1, tagsString.length()-1);
+		log.info("tagsString2->"+tags2);
+		tags = Arrays.asList(tags2.split("\\s*,\\s*"));				
+		String lang=req.getParameter("lang");
+
+		String accessToken = (String) req.getSession().getAttribute("MicrosoftTranslate-token");
+		//String accessToken ="eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ1cm46bXMuY29nbml0aXZlc2VydmljZXMiLCJleHAiOiIxNTU3MjM0MTc3IiwicmVnaW9uIjoiZ2xvYmFsIiwic3Vic2NyaXB0aW9uLWlkIjoiNGNjYWE4MWQ4MGNiNGY5ZTg1NTNmMzFmYzVjYjVmNGUiLCJwcm9kdWN0LWlkIjoiVGV4dFRyYW5zbGF0b3IuRjAiLCJjb2duaXRpdmUtc2VydmljZXMtZW5kcG9pbnQiOiJodHRwczovL2FwaS5jb2duaXRpdmUubWljcm9zb2Z0LmNvbS9pbnRlcm5hbC92MS4wLyIsImF6dXJlLXJlc291cmNlLWlkIjoiL3N1YnNjcmlwdGlvbnMvNmM0NzA0ZDctMWQyYy00NGVhLWE0OTEtNTc4NTU4MmJjYjUyL3Jlc291cmNlR3JvdXBzL2YxL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvdDEiLCJzY29wZSI6Imh0dHBzOi8vYXBpLm1pY3Jvc29mdHRyYW5zbGF0b3IuY29tLyIsImF1ZCI6InVybjptcy5taWNyb3NvZnR0cmFuc2xhdG9yIn0.Wz2xTs5T1Bt-wqWkpqs-xguMz6Jnb7dDHUgIIZ0aWAQ";
+
 	            MicrosoftTranslateResource mtResource = new MicrosoftTranslateResource(accessToken);
 	            
 	            List<String> translated = mtResource.getTranslation(tags,lang);
@@ -47,10 +55,7 @@ public class MicrosoftTranslateController extends HttpServlet {
 	                log.info("The translated text is null... probably your bearer token has experied. Redirecting to Auth servlet.");
 	                //req.getRequestDispatcher("/AuthControllerMicrosoftTranslate").forward(req, resp);
 	            }
-	        } else {
-	            log.info("Trying to access Microsoft Translate without Bearer Token, redirecting to Auth servlet");
-	            //req.getRequestDispatcher("/AuthControllerMicrosoftTranslate").forward(req, resp);
-	        }
+	     
 	
 	}
 	
