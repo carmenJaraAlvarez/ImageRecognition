@@ -30,7 +30,7 @@ public class UnplashCollectionsListController extends HttpServlet {
         String accessToken = (String) req.getSession().getAttribute("Unplash-token");
                 
         if (accessToken != null && !"".equals(accessToken)) {
-        	String name ="carjaralv";//TODO
+        	
             UnplashResource uResource = new UnplashResource(accessToken);
             log.info("there is access token in list collection controller");
             List<UnplashCollection> l=uResource.getCollections();

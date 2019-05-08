@@ -69,7 +69,6 @@ public class MicrosoftTranslateController extends HttpServlet {
 		List<String> tags=new ArrayList<String>();		
 		log.info("tagsString->"+tagsString);
 		String tags2=tagsString.substring(1, tagsString.length()-1);
-		log.info("tagsString2->"+tags2);
 		tags = Arrays.asList(tags2.split("\\s*,\\s*"));				
 		
 

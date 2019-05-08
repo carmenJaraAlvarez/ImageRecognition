@@ -9,10 +9,16 @@
             <c:out value="${t}"/>
             <br>
             </c:forEach>
-             <a class="btn btn-default amber darken-4" href="/unplashClasificator">
-              To collection
-            </a>
-</div>
+            <form action="/unplashClasificator" Method="post">
+            <input type=hidden name="id" value="${img.id}">
+             <input type=hidden name="translated" value="${translated}">
+             <input type=submit value=" ">
+            </form>
 
+</div>
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
 <%@include file="includes/footer.jsp"%>
 
