@@ -7,17 +7,18 @@
 <h1>Unsplash Images</h1>
     <p class="message">${message}</p>
     <c:forEach items="${images}" var="item">
-   <img src=" ${item.urls.small}"><br>
-    <a class="btn btn-default" href="/unplashAddPhoto?id=${item.id}">to collection</a>
+  <a href="/unplashAddPhoto?id=${item.id}" ><img src=" ${item.urls.small}"><br></a>
+   <a class="btn btn-default" href="/googleVisionList?id=${item.id}">clasificar</a>
+<!--     <a class="btn btn-default" href="/unplashAddPhoto?id=${item.id}">to collection</a>
    <c:out value="${item.urls.raw}"></c:out><br>
     <c:out value="${item.urls.full}"></c:out>
-    <br>
+    <br>--> 
     <br>
 	</c:forEach>
 	<Br>
-              <a class="btn btn-default amber darken-4" href="/unplashCreateCollection">
+<!--              <a class="btn btn-default amber darken-4" href="/unplashCreateCollection">
               Create collection
-            </a>
+            </a>-->
             <br/></br>
                <a class="btn btn-default amber darken-4" href="/unplashCollectionsList">
               My Collections
