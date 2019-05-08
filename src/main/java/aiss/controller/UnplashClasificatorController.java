@@ -33,6 +33,28 @@ public class UnplashClasificatorController extends HttpServlet {
         String id=req.getParameter("id");
         String translated0=req.getParameter("translated");
         
+
+        List<ImagesSearch> ims=new ArrayList<>();
+        
+        //TODO change to ask for one
+        if (accessToken != null && !"".equals(accessToken)) {
+        	
+            UnplashResource uResource = new UnplashResource(accessToken);
+            log.info("there is unsplash access token");
+            ims =uResource.getImages();            
+        } else {
+            log.info("Trying to access  unsplash without an access token, redirecting to OAuth servlet");
+            req.getRequestDispatcher("/AuthController/Unplash").forward(req, resp);
+        }
+        ImagesSearch im=null;
+        for(ImagesSearch i: ims) {
+        	if (i.getId().equals(id)) {
+        		im=i;
+        		break;
+        	}
+        }
+        log.info("uri image: "+im.getUrls().getSmall());
+        req.setAttribute("img", im);
         List<String> collectionsForSelect=new ArrayList<String>();
         
         if (accessToken != null && !"".equals(accessToken)) {

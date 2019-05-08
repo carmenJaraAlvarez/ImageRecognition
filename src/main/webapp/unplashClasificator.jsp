@@ -6,20 +6,17 @@
 <div class="container">
 <h1>Unsplash Clasificator</h1>
     <p class="message">${message}</p>
-${id}
-    <c:forEach items="${collectionsForSelect}" var="t">
-            <c:out value="${t}"/>
-            <br>
-            </c:forEach>
+
+<img src="${img.urls.small}">
 </div>
 
-<form action="/add" method="post">
-<input type="hidden" name="id" value="${img.id}">
+<form action="/unplashAddPhoto" method="post">
+<input type="hidden" name="id" value="${id}">
 <input type="hidden" name="translated" value="${translated}">  
   <select name="collection" class="browser-default" >
     <option value="" disabled selected>Colección</option>
     <c:forEach items="${requestScope.collectionsForSelect}" var="c">
-     <option value="c">c</option>
+     <option value="${c}">${c}</option>
     </c:forEach>
 
     

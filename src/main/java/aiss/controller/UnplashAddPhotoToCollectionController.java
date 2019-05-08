@@ -5,6 +5,7 @@ package aiss.controller;
 
 import aiss.model.resource.UnplashResource;
 import aiss.model.unplash.ImagesSearch;
+import aiss.model.unplash.UnplashCollection;
 import aiss.model.unplash.Urls;
 
 import java.io.IOException;
@@ -14,6 +15,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.api.client.repackaged.com.google.common.base.Strings;
 
 public class UnplashAddPhotoToCollectionController extends HttpServlet {
 
@@ -25,16 +28,77 @@ public class UnplashAddPhotoToCollectionController extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-
+    	String collectionId=null;
         String accessToken = (String) req.getSession().getAttribute("Unplash-token");
         String photoId = req.getParameter("id");
-        String collectionId="4714089";//TODO
+        String collection=req.getParameter("collection");
+        log.info("+++++++++++++++++"+collection);
+        //if collection contains *new* create collection
+        if(collection.contains("*(new)*")) {
+        	String title= collection.substring(0, collection.length()-8);
+      	 
+        	 
+             if (accessToken != null && !"".equals(accessToken)) {
+                 if (title != null && !"".equals(title)) {
+                	 UnplashResource uResource = new UnplashResource(accessToken);
+                	 log.info("creating");
+                     uResource.POSTRequest(title);
+                     List<UnplashCollection> l=uResource.getCollections();
+                     for (UnplashCollection c: l) {
+                    	 String t=c.getTitle();
+                    	 log.info("]]]]]]]]]]]]]]]]]]]]]]"+t+"**"+title);                    	
+                    	 if(t.contentEquals(title)) {
+                    		 collectionId=c.getId().toString();
+                    		 log.info(collectionId);
+                    		 break;
+                    	 }
+                    	 
+                     }
+                     req.getRequestDispatcher("/unplashCollectionsList").forward(req, resp);
+                 } else {
+                     req.setAttribute("message", "It is not a valid title to collection");
+
+                     req.getRequestDispatcher("unplashClasificator.jsp").forward(req, resp);
+                 }
+             } else {
+                 log.info("Trying to access Unplash without an access token, redirecting to OAuth servlet");
+                 req.getRequestDispatcher("/AuthController/Unplash").forward(req, resp);
+             }
+        	
+        }
+        else {
+        	 //get collections
+        	 if (accessToken != null && !"".equals(accessToken)) {
+                 if (collection != null && !"".equals(collection)) {
+                	 UnplashResource uResource = new UnplashResource(accessToken);
+                	 log.info("getting collections");
+                	 List<UnplashCollection> l=uResource.getCollections();
+                     // for collections if title == >>  collectionId
+                     for (UnplashCollection c: l) {
+                    	 log.info("]]]]]]]]]]]]]]]]]]]]]]"+(String) c.getTitle()+"**"+collection);
+                    	 if(c.getTitle().contentEquals(collection)) {
+                    		 collectionId=c.getId().toString();
+                    	 }
+                     }
+                 }
+                 else {
+                	 log.info("No title");
+                	 req.setAttribute("message", "It is not a valid title to collection");
+                	 req.getRequestDispatcher("unplashClasificator.jsp").forward(req, resp);
+                 }
+        	 }
+        	 else {
+                 log.info("Trying to access Unplash without an access token, redirecting to OAuth servlet");
+                 req.getRequestDispatcher("/AuthController/Unplash").forward(req, resp);
+             }
+        }
+       
+        //adding
        
         if (accessToken != null && !"".equals(accessToken)) {
         	
             UnplashResource uResource = new UnplashResource(accessToken);
             log.info("there is access token in ADD***");
-//            Files files = gdResource.getFiles();
             uResource.addPhotoToCollection(photoId,collectionId);
                 req.getRequestDispatcher("/unplashImagesList").forward(req, resp);
             

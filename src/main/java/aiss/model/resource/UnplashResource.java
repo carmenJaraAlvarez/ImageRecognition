@@ -121,6 +121,7 @@ public class UnplashResource {
         }
       
     }
+    //getCollection
     public void POSTRequest(String title) throws IOException {
         //final String POST_PARAMS =  "{\n" + "\"title2000\": 101,\"" + "\n}";
     	 String data = "title="+title+"&private=true";
