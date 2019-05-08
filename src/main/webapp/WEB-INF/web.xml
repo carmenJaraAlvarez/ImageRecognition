@@ -34,6 +34,7 @@
     <url-pattern>/translate</url-pattern>
   </servlet-mapping>
   
+  
 	     <!-- Unplash get images-->
     <servlet>
         <servlet-name>UnplashImagesListController</servlet-name>
@@ -42,6 +43,15 @@
     <servlet-mapping>
         <servlet-name>UnplashImagesListController</servlet-name>
         <url-pattern>/unplashImagesList</url-pattern>
+    </servlet-mapping>
+           <!-- Unplash clasificator-->
+    <servlet>
+        <servlet-name>UnplashClasificatorController</servlet-name>
+        <servlet-class>aiss.controller.UnplashClasificatorController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UnplashClasificatorController</servlet-name>
+        <url-pattern>/unplashClasificator</url-pattern>
     </servlet-mapping>
        <!-- Unplash create collection-->
     <servlet>

@@ -13,7 +13,8 @@
             </c:forEach>
             
 <form action="/translate" method="post">
-<input type="hidden" name="tags" value="${requestScope.tags}">  
+<input type="hidden" name="id" value="${img.id}">
+<input type="hidden" name="tags" value="${tags}">  
   <select name="lang" class="browser-default" >
     <option value="" disabled selected>Idioma</option>
     <option value="es">Español</option>
