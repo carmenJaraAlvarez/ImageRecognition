@@ -66,14 +66,14 @@ public class UnplashResource {
             cr = new ClientResource(uri+"users/"+name+"/photos/" + "?access_token=" + access_token);
             log.info(uri + "?access_token=" + access_token);
             ImagesSearch[] s = cr.get(ImagesSearch[].class);
-            //log.info("--> result" +s[0].getId());
+            log.info(cr.getStatus()+ "");
            if(s.length>0) {
         	   images = Arrays.asList(s);
            }
   
 
         } catch (ResourceException re) {
-            log.warning("Error when retrieving all imagess: " + cr.getResponse().getStatus());
+            log.warning("Error when retrieving all images: " + cr.getResponse().getStatus());
         }
 
         return images;

@@ -36,7 +36,7 @@ public class UnplashImagesListController extends HttpServlet {
 //            Files files = gdResource.getFiles();
             List<ImagesSearch> im =uResource.getImages();
             if (im != null) {
-            	log.info("--> not null");
+            	log.info("--> not null__"+im.size());
             
             	req.setAttribute("images", im);
                 req.getRequestDispatcher("/unplashImagesListing.jsp").forward(req, resp);
