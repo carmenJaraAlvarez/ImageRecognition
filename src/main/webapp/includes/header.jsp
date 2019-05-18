@@ -3,7 +3,19 @@
 
 <!DOCTYPE html>
 <html>
+    <body>
     <head>
+    <style>
+ body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+</style>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
       <!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -12,7 +24,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>tecnogad</title>
     </head>
-    <body>
+	<main>
     <nav class="grey" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">tecno<span class='amber-text'>gad!</span></a>
       <ul class="right hide-on-med-and-down">

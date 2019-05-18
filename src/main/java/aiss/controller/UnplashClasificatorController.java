@@ -28,11 +28,16 @@ public class UnplashClasificatorController extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-
-        String accessToken = (String) req.getSession().getAttribute("Unplash-token");
-        String id=req.getParameter("id");
-        String translated0=req.getParameter("translated");
-        
+    	 String accessToken=null;
+        accessToken = (String) req.getSession().getAttribute("Unplash-token");
+        String id=null;
+        id=req.getParameter("id");
+        String translated0=null;
+        translated0=req.getParameter("translated");
+        if(id==null || id=="" ||translated0==null ||translated0=="") {
+        	 log.info("Not params");
+        	 req.getRequestDispatcher("/unplashCollectionsList").forward(req, resp);
+        }
 
         List<ImagesSearch> ims=new ArrayList<>();
         

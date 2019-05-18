@@ -29,14 +29,20 @@ public class UnplashAddPhotoToCollectionController extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
     	String collectionId=null;
+    	String collection=null;
+    	String photoId=null;
+        photoId = req.getParameter("id");
+        collection=req.getParameter("collection");
+        if((collection==null) || collection=="" || photoId==null || photoId=="") {
+        	log.info("Not params");
+       	 	req.getRequestDispatcher("/unplashCollectionsList").forward(req, resp);
+        }else {
         String accessToken = (String) req.getSession().getAttribute("Unplash-token");
-        String photoId = req.getParameter("id");
-        String collection=req.getParameter("collection");
-        log.info("+++++++++++++++++"+collection);
+        log.info("+++++++++++++++++"+collection + (collection==null));
         //if collection contains *new* create collection
         if(collection.contains("*(new)*")) {
         	String title= collection.substring(0, collection.length()-8);
-      	 
+        	
         	 
              if (accessToken != null && !"".equals(accessToken)) {
                  if (title != null && !"".equals(title)) {
@@ -106,6 +112,7 @@ public class UnplashAddPhotoToCollectionController extends HttpServlet {
             log.info("Trying to access without an access token, redirecting to OAuth servlet");
             req.getRequestDispatcher("/AuthController/Unplash").forward(req, resp);
         }
+    }
     }
 
     @Override

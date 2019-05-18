@@ -5,7 +5,7 @@
 
 
 <div class="container">
-<h1>Unsplash Collections</h1>
+<h1>Colecciones Unsplash</h1>
     <p class="message">${message}</p>
   <table><tbody>
   <tr><th><c:out value="Nombre"></c:out></th><th><c:out value="Publicar"></c:out></th><th><c:out value="Eliminar"></c:out></th></tr>

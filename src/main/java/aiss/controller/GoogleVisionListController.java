@@ -36,7 +36,7 @@ public class GoogleVisionListController extends HttpServlet {
 
         }
         else {
-        	//TODO  ???
+        
             log.info("Trying to access  unsplash without an access token, redirecting to OAuth servlet");
             req.getRequestDispatcher("/unplashImagesList").forward(req, resp);
         }
@@ -53,9 +53,15 @@ public class GoogleVisionListController extends HttpServlet {
         //id no, token yes
         if((photoId==null || photoId=="") && (accessToken!=null && accessToken!="")) {
         	//take id from repo, go on
+        	try {
         	Record r=repo.findByUnsplashId(unsplashId);
         	photoId=r.getPhotoId();
         	//if no id >> go to image list
+        	}
+        	catch(Exception e) {
+        		log.info(e.getMessage());
+        		req.getRequestDispatcher("/unplashImagesList").forward(req, resp);
+        	}
         	if(photoId==null) {
         		 log.info("No photo id");
                  req.getRequestDispatcher("/unplashImagesList").forward(req, resp);

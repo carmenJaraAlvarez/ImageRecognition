@@ -37,12 +37,15 @@ public class MicrosoftTranslateController extends HttpServlet {
 		String photoId = req.getParameter("id");
 		log.info("-------------------------------"+photoId);
 		String lang=req.getParameter("lang");
+		if(lang==null || lang=="") {
+			lang="en";
+		}
 		log.info("-------------------------------"+lang);
 		String tagsString=req.getParameter("tags");	
 		log.info("-------------------------------"+tagsString);
 	    List<ImagesSearch> ims=new ArrayList<>();
 	       
-	        //TODO change to ask for one
+	        //TODO change to ask for one will be more efficient
 	        if (accessToken != null && !"".equals(accessToken)) {
 	        	log.info("there is unsplash access token");
 	            UnplashResource uResource = new UnplashResource(accessToken);	            

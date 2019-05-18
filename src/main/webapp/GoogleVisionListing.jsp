@@ -22,7 +22,7 @@
     <option value="fr">Francés</option>
     
   </select>
-  <input type="submit" value=" ">
+  <input type="submit" class="btn btn-default" value="Continuar ">
 </form>
 
 </div>
