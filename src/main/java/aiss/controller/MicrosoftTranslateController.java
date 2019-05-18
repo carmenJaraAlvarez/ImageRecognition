@@ -44,7 +44,11 @@ public class MicrosoftTranslateController extends HttpServlet {
 		String tagsString=req.getParameter("tags");	
 		log.info("-------------------------------"+tagsString);
 	    List<ImagesSearch> ims=new ArrayList<>();
-	       
+	    if(photoId==null || photoId=="" || tagsString==null || tagsString=="") {
+	    	log.info("No params");
+	    	req.getRequestDispatcher("/unplashImagesList").forward(req, resp);
+	    }
+	    else {
 	        //TODO change to ask for one will be more efficient
 	        if (accessToken != null && !"".equals(accessToken)) {
 	        	log.info("there is unsplash access token");
@@ -87,7 +91,7 @@ public class MicrosoftTranslateController extends HttpServlet {
 	                log.info("The translated text is null... probably your bearer token has experied. Redirecting to Auth servlet.");
 	                //req.getRequestDispatcher("/AuthControllerMicrosoftTranslate").forward(req, resp);
 	            }
-	     
+	    }
 	
 	}
 	
