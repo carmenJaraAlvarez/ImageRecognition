@@ -1,6 +1,7 @@
 <%@include file="includes/header.jsp"%>
  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <h1>Unsplash Create Collection</h1>
 
 <div class="container">

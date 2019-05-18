@@ -139,7 +139,7 @@ public class UnplashResource {
  //       postConnection.setRequestProperty("User-agent", "adefgh");
         postConnection.setDoOutput(true);
         OutputStream os = postConnection.getOutputStream();
-        OutputStreamWriter wr = new OutputStreamWriter(os);
+        OutputStreamWriter wr = new OutputStreamWriter(os, "UTF-8");
         wr.write(data);
         wr.flush();
         wr.close();
@@ -149,7 +149,7 @@ public class UnplashResource {
 
         if (responseCode == HttpURLConnection.HTTP_CREATED) { //success
             BufferedReader in = new BufferedReader(new InputStreamReader(
-                postConnection.getInputStream()));
+                postConnection.getInputStream(),"UTF-8"));
             String inputLine;
             StringBuffer response = new StringBuffer();
             while ((inputLine = in .readLine()) != null) {

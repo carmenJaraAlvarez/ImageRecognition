@@ -38,11 +38,11 @@ public class UnplashAddPhotoToCollectionController extends HttpServlet {
        	 	req.getRequestDispatcher("/unplashCollectionsList").forward(req, resp);
         }else {
         String accessToken = (String) req.getSession().getAttribute("Unplash-token");
-        log.info("+++++++++++++++++"+collection + (collection==null));
+        log.info("++"+collection + (collection==null));
         //if collection contains *new* create collection
         if(collection.contains("*(new)*")) {
         	String title= collection.substring(0, collection.length()-8);
-        	
+        	log.info("NEW----------------"+ title);
         	 
              if (accessToken != null && !"".equals(accessToken)) {
                  if (title != null && !"".equals(title)) {
@@ -52,7 +52,7 @@ public class UnplashAddPhotoToCollectionController extends HttpServlet {
                      List<UnplashCollection> l=uResource.getCollections();
                      for (UnplashCollection c: l) {
                     	 String t=c.getTitle();
-                    	 log.info("]]]]]]]]]]]]]]]]]]]]]]"+t+"**"+title);                    	
+                    	 log.info("]]"+t+"**"+title); //                   	
                     	 if(t.contentEquals(title)) {
                     		 collectionId=c.getId().toString();
                     		 log.info(collectionId);

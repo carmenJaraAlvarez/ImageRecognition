@@ -8,6 +8,7 @@
 
     <p class="message">${message}</p>
     <c:forEach items="${images}" var="item">
+    <br>
   <a href="/unplashAddPhoto?id=${item.id}" ><img src=" ${item.urls.small}"><br></a>
    <a class="btn btn-default" href="/googleVisionList?id=${item.id}">reconocer</a>
 <!--     <a class="btn btn-default" href="/unplashAddPhoto?id=${item.id}">to collection</a>
@@ -16,7 +17,7 @@
     <br>--> 
     <br>
 	</c:forEach>
-	<Br>
+	<br><br>
 <!--              <a class="btn btn-default amber darken-4" href="/unplashCreateCollection">
               Create collection
             </a>-->
