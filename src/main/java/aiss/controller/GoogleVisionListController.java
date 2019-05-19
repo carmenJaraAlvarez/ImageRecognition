@@ -103,8 +103,9 @@ public class GoogleVisionListController extends HttpServlet {
 	
 	            GoogleVisionResource gdResource = new GoogleVisionResource(accessTokenG);
 	            List<String> tags = gdResource.getTags(im.getUrls().getFull(), accessToken, accessTokenG);
-	
-	            if (tags != null) {
+	            //if response==401 to req.getRequestDispatcher("/AuthController/GoogleVision").forward(req, resp);
+	            if (tags != null && !tags.isEmpty()) {
+	            	log.info("tags ok");
 	                req.setAttribute("tags", tags);
 	                req.getRequestDispatcher("/googleVisionListing.jsp").forward(req, resp);
 	            } else {

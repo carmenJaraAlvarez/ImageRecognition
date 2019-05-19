@@ -51,9 +51,15 @@ public class GoogleVisionResource {
         List<String> tags = new ArrayList<String>();
         GoogleVisionSearch gvs=null;
         try {
-            cr = new ClientResource(uri + "?access_token=" + accessTokenG);
-          
-            
+        	 log.info("Init try---------------------------");
+            cr = new ClientResource(uri);
+            log.info("cr---------------------------");
+            ChallengeResponse chr = new ChallengeResponse(
+                    ChallengeScheme.HTTP_OAUTH_BEARER);
+            chr.setRawValue(access_token);
+            log.info("chr---------------------------");
+            cr.setChallengeResponse(chr);
+            log.info("cr.chr---------------------------");
             String text = "{\r\n" + 
             		"  \"requests\": [\r\n" + 
             		"    {\r\n" + 
@@ -73,6 +79,7 @@ public class GoogleVisionResource {
             		"}";
            
             GoogleVisionRequest gvr= new GoogleVisionRequest();
+
             
             //String imageUri= "https://raw.githubusercontent.com/karolmajek/GCP-Vision-API/master/images/kinship.jpg";
             String imageUri=unsplashUri + "?access_token=" + unsplashToken;
@@ -100,13 +107,19 @@ public class GoogleVisionResource {
             rqs.add(rq);
             
             gvr.setRequests(rqs);
-           
+            log.info("cr.chr---------------------------");
              gvs=cr.post(gvr, GoogleVisionSearch.class);
-             log.info("post status->"+cr.getStatus());
-             Response r=gvs.getResponses().get(0);
-
-             for(LabelAnnotation l: r.getLabelAnnotations()) {
-            	 tags.add(l.getDescription());
+            
+             log.info("post status->"+cr.getStatus()+". Estate 401->"+(cr.getStatus().getCode()==401));
+             if(cr.getStatus().getCode()==401){
+            	 tags=null;
+             }
+             else {
+	             Response r=gvs.getResponses().get(0);
+	
+	             for(LabelAnnotation l: r.getLabelAnnotations()) {
+	            	 tags.add(l.getDescription());
+	             }
              }
         } catch (ResourceException re) {
             log.warning("Error when retrieving tags: " + cr.getResponse().getStatus());
