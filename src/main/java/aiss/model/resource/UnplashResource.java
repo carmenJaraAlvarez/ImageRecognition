@@ -66,7 +66,7 @@ public class UnplashResource {
             cr = new ClientResource(uri+"users/"+name+"/photos/" + "?access_token=" + access_token);
             log.info(uri + "?access_token=" + access_token);
             ImagesSearch[] s = cr.get(ImagesSearch[].class);
-            log.info(cr.getStatus()+ "");
+            log.info(cr.getStatus()+"----"+ s.length);
            if(s.length>0) {
         	   images = Arrays.asList(s);
            }

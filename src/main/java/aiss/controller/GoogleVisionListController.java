@@ -42,7 +42,7 @@ public class GoogleVisionListController extends HttpServlet {
         }
         String photoId = req.getParameter("id");
         AuxRepository repo=AuxRepository.getInstance();
-        
+        log.info("idphoto: "+photoId);
         //id yes, token no
         if((photoId!=null && photoId!="") && (accessToken==null || accessToken=="")) {
         	//save id in repo, go to auth        	        	
@@ -52,6 +52,7 @@ public class GoogleVisionListController extends HttpServlet {
         }
         //id no, token yes
         if((photoId==null || photoId=="") && (accessToken!=null && accessToken!="")) {
+        	 log.info("id null y accesstoken");
         	//take id from repo, go on
         	try {
         	Record r=repo.findByUnsplashId(unsplashId);
@@ -75,30 +76,35 @@ public class GoogleVisionListController extends HttpServlet {
         }
         //id yes, token yes
         if((photoId!=null && photoId!="") && (accessToken!=null && accessToken!="")) {
+        	log.info("photo and token");
 	        	//go on	       
 	        List<ImagesSearch> ims=new ArrayList<>();
 	        String accessTokenG = (String) req.getSession().getAttribute("GoogleVision-token");
 	        //TODO change to ask for one
+	        log.info("token g: "+ accessTokenG);
 	        if (accessTokenUnsplash != null && !"".equals(accessTokenUnsplash)) {
 	        	
 	            UnplashResource uResource = new UnplashResource(accessTokenUnsplash);
-	            log.info("there is  access token");
-	            ims =uResource.getImages();            
+	            log.info("** there is  access token");
+	            ims =uResource.getImages();
+	            log.info("--------------------------------");
 	        } else {
 	            log.info("Trying to access  unsplash without an access token, redirecting to OAuth servlet");
 	            req.getRequestDispatcher("/AuthController/Unplash").forward(req, resp);
 	        }
 	        ImagesSearch im=null;
+	        log.info("--------------------------------");
 	        for(ImagesSearch i: ims) {
 	        	if (i.getId().equals(photoId)) {
 	        		im=i;
+	        		 log.info("find photo");
 	        		break;
 	        	}
 	        }
 	        log.info("uri image: "+im.getUrls().getSmall());
 	        req.setAttribute("img", im);
 	        
-	
+	        log.info("--------------------------------");
 	        if (accessTokenG != null && !"".equals(accessTokenG)) {
 	
 	            GoogleVisionResource gdResource = new GoogleVisionResource(accessTokenG);
@@ -107,7 +113,8 @@ public class GoogleVisionListController extends HttpServlet {
 	            if (tags != null && !tags.isEmpty()) {
 	            	log.info("tags ok");
 	                req.setAttribute("tags", tags);
-	                req.getRequestDispatcher("/googleVisionListing.jsp").forward(req, resp);
+	                log.info("tag 1"+tags.get(0));
+	                req.getRequestDispatcher("/GoogleVisionListing.jsp").forward(req, resp);
 	            } else {
 	                log.info("The tags returned are null... probably your token has experied. Redirecting to OAuth servlet.");
 	                req.getRequestDispatcher("/AuthController/GoogleVision").forward(req, resp);
